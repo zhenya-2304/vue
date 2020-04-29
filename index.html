@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue App</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span v-for='item in arr'>{{item}}</span>
+    </div>
+
+    <script>
+        function* pseudoRandom(seed, count){//seed - начальное значение, count - количество операций 
+            let previous = next = seed;
+
+            while(count--){
+                next = previous * 16807 % 2147483647;
+                yield next;
+                previous = next;
+                alert(count);
+            }
+        }
+
+        let generator = pseudoRandom(1,10);
+
+
+        var app = new Vue ({
+            el:'#app',
+            data:{
+                arr: generator,
+            },
+        })
+    </script>
+</body>
+</html>
