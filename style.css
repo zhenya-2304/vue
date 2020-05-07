@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@700&display=swap');
+
+body{
+    margin:0;
+}
+header{
+    position: relative;
+    display: flex;
+    padding:20px;
+    justify-content: space-between;
+    background: linear-gradient(#961313,#b30c0c);
+    box-shadow: 0 0 8px 2px #3e3e3e;
+    color: #000;
+}
+.logo{
+    font-family: 'Athiti', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+.logo span{
+    display: flex;
+}
+.logo>span:nth-child(1){
+    font-size: 50px;
+    line-height: 30px;
+}
+.logo>span:nth-child(2){
+    font-size: 20px;
+}
+.menu{
+    display: flex;
+}
+.menu__wrap{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+li.menu__item{
+    list-style: none;
+    padding:0 25px;
+    font-size: 20px;
+}
+header>.mini-cart{
+    transform: translateX(-50%);
+}
+.menu__button{
+    display: none;
+    background: transparent;
+    border: none;
+    margin-left: 10px;
+}
+.menu__button:active, .menu__button:focus{
+    outline: none;
+}
+.menu__icon {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 3px;
+    border: none;
+    background-color: #000000a6;
+}
+.menu__icon::before{
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    display: block;
+    width: 40px;
+    height: 3px;
+    border: none;
+    background-color: #000000a6;
+}
+.menu__icon::after{
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
+    display: block;
+    width: 20px;
+    height: 3px;
+    border: none;
+    background-color: #000000a6;
+}
+.mini-cart{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+.content{
+    padding: 25px;
+}
+.slider{
+    max-width: 100%!important;
+}
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top:0;
+    left: -1000px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #fff;
+    z-index: 1;
+    transition: all .5s .2s;
+}
+.mobile-menu_active{
+    left:0;
+    z-index: 1;
+}
+.mobile-menu__logo{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.mobile-menu__wrap {
+    display: flex;
+    flex-direction: column;
+}
+.mobile-menu__item {    
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+
+@media screen and (max-width: 700px){
+    .mobile-menu{
+        display: block;
+    }
+    .menu{
+        display: none;
+    }
+    .menu__button{
+        display: flex;
+    }
+}
