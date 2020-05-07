@@ -1,19 +1,13 @@
 //script menu in mobile version
 class MobileMenu {
-    constructor(classes = {}) {  //classes - объект с классами объектов меню
-        if (classes) {
-            for (let key in classes) {
-                classes[key] = '.' + classes[key];
-            }
-            this.button = document.querySelector(classes.btnOpen);
-            this.closeBtn = document.querySelector(classes.btnClose);
-            this.menu = document.querySelector(classes.menu);
-            this.activeClass = classes.activeClass;
+    constructor(classes) {  //classes - объект с классами объектов меню
+        this.button = document.querySelector(classes.btnOpen);
+        this.closeBtn = document.querySelector(classes.btnClose);
+        this.menu = document.querySelector(classes.menu);
+        this.activeClass = classes.activeClass;
 
-            this.button.addEventListener('click', this.addModificator);
-            this.closeBtn.addEventListener('click', this.addModificator);
-        }
-
+        this.button.addEventListener('click', this.addModificator);
+        this.closeBtn.addEventListener('click', this.addModificator);
     }
     addModificator() {
         if (menu.classList.contains(this.activeClass)) {
