@@ -6,7 +6,7 @@ class MobileMenu {
         this.menu = document.querySelector(classes.menu);
         this.activeClass = classes.activeClass;
 
-        this.button.addEventListener('click', this.addModificator);
+        this.button.adventListener('click', this.addModificator);
         this.closeBtn.addEventListener('click', this.addModificator);
     }
     addModificator() {
@@ -21,3 +21,7 @@ class MobileMenu {
 
 
 }
+
+let ing = new MobileMenu({
+    activeClass: 'active'
+});

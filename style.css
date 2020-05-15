@@ -104,7 +104,7 @@ header>.mini-cart{
     width: 100vw;
     background-color: #fff;
     z-index: 1;
-    transition: all .5s .2s;
+    transition: all 1s .2s;
 }
 .mobile-menu_active{
     left:0;
@@ -123,6 +123,30 @@ header>.mini-cart{
     display: flex;
     justify-content: center;
     padding: 10px;
+}
+
+.content__pizza {
+    justify-content: center;
+}
+.pizza {
+    display: flex;
+    flex-direction: column;
+    color:#000;
+}
+.pizza__products {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pizza__product {
+}
+.pizza_product {
+}
+.pizza__canvas {
+}
+.pizza__components {
+}
+.pizza__component {
 }
 
 

@@ -16,7 +16,7 @@
 <body>
     <div id="app">
         <header>
-            <button class="menu__button"><i class="menu__icon"></i></button>
+            <button class="menu__button" v-on:click="showMenu"><i class="menu__icon"></i></button>
             <div class="logo">
                 <span>Pizza</span>
                 <span>constructor</span>
@@ -28,13 +28,13 @@
                     <li class="menu__item">Contacts</li>
                 </ul>
             </nav>
-            <nav class="mobile-menu">
+            <nav class="mobile-menu" v-bind:class="{ 'mobile-menu_active': isActive }">
                 <div class="mobile-menu__logo">
                     <div class="logo">
                         <span>Pizza</span>
                         <span>constructor</span>
                     </div>
-                    <span class="close"></span>
+                    <span class="close" v-on:click="showMenu"></span>
                 </div>
 
                 <ul class="mobile-menu__wrap">
@@ -66,6 +66,24 @@
                 <a class="slider__control slider__control_prev" href="#" role="button"></a>
                 <a class="slider__control slider__control_next slider__control_show" href="#" role="button"></a>
             </div>
+            <div class="content__pizza pizza">
+                <div class="pizza__products">
+                    <div class="pizza__product" v-on:click='addComponent("cheese")'>Cheese</div>
+                    <div class="pizza__product" v-on:click='addComponent("becon")'>Becon</div>
+                    <div class="pizza__product" v-on:click='addComponent("mushrooms")'>Mushrooms</div>
+                </div>
+                <div class="pizza__canvas" v-on:load='init'>
+                    <canvas id='canvas' v-bind:width="sizeCanvas.width" v-bind:height="sizeCanvas.height"></canvas>
+                </div>
+                <div class="pizza__components">
+                    <ul>
+                        <li class='pizza__component' v-for='item in components'>
+                            <span>{{item}}</span>
+                            <button v-on:click='removeComponent(item)'>Delete</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <script src="/slider/js/slider.js"></script>
@@ -75,16 +93,7 @@
 
         });
     </script>
-    <script type="module" src="index.js"></script>
-    <script src='mobile-menu.js'></script>
-    <script>
-        let menu = new MobileMenu({
-            btnOpen: 'menu__button',
-            btnClose: 'close',
-            menu: 'menu__wrapper',
-            activeClass: ''
-        });
-    </script>
+    <script type='module' src="index.js"></script>
 </body>
 
 </html>
