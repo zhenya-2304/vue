@@ -77,9 +77,10 @@
                 </div>
                 <div class="pizza__components">
                     <ul>
-                        <li class='pizza__component' v-for='item in components'>
-                            <span>{{item}}</span>
-                            <button v-on:click='removeComponent(item)'>Delete</button>
+                        <li class='pizza__component' v-for='(item, index) in components' v-bind:key='item.id'
+                            v-if='item.name != "testo"'>
+                            <span>{{item.name}} - {{item.count}}</span>
+                            <button v-on:click='removeComponent(index)'>Delete</button>
                         </li>
                     </ul>
                 </div>

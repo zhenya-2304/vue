@@ -3,7 +3,13 @@ let app = new Vue({
     data: {
         cartEmpty: 1,
         isActive: 0,
-        components: [],
+        components: [
+            {
+                id: 0,
+                name: 'testo',
+                count: 1,
+            },
+        ],
     },
     methods: {
         showMenu: function () {
@@ -14,56 +20,57 @@ let app = new Vue({
             }
         },
         addComponent: function (component) {
-
-            let index = this.components.indexOf(component, 0);
-            if (index != -1) {
-                this.drawOnCanvas(component, .1);
+            let index = 0;
+            this.components.forEach(element => {
+                if (element.name == component) {
+                    index = element.id;
+                } else {
+                    return 0;
+                }
+            });
+            if (index) {
+                this.components[index].count++;
             } else {
-                this.drawOnCanvas(component);
+                this.components.push({
+                    id: this.components.length,
+                    name: component,
+                    count: 1
+                });
             }
+            this.drawOnCanvas();
 
-            this.components.push(component);
         },
-        removeComponent: function (component) {
-            let index = this.components.indexOf(component, 0)
-            if (index != -1) {
-                this.components.splice(index, 1);
+        removeComponent: function (index) {
+            if (this.components[index]) {
+                if (this.components[index].count == 1) {
+                    this.components.splice(index, 1);
+                    this.drawOnCanvas();
+                } else {
+                    this.components[index].count--;
+                }
             } else {
                 alert('Not found this element in the pizza');
             }
         },
         init: function () {
-            let canvas = document.getElementById('canvas');
-            let context = canvas.getContext('2d');
-            let widthImage = +this.sizeCanvas.width.split('').slice(0, -2).join('');
-            let heightImage = +this.sizeCanvas.height.split('').slice(0, -2).join('');
-
-            let img = new Image();
-            img.onload = function () {
-                context.drawImage(img, 0, 0, widthImage, heightImage);
-            }
-            img.src = 'images/testo.png';
+            this.drawOnCanvas();
         },
-        drawOnCanvas: function (src, rotate = 0) {
+        drawOnCanvas: function () {
             let context = document.getElementById('canvas').getContext('2d');
+            let arr = this.components;
 
             let widthImage = +this.sizeCanvas.width.split('').slice(0, -2).join('');
             let heightImage = +this.sizeCanvas.height.split('').slice(0, -2).join('');
-            let img = new Image();
 
-            img.onload = function () {
-                if (rotate) {
-                    context.translate(widthImage / 2, heightImage / 2);
-                    context.rotate(rotate);
-                    context.drawImage(img, -widthImage / 2, -heightImage / 2, widthImage, heightImage);
-                    context.translate(-widthImage / 2, -heightImage / 2);
-                    context.rotate(-rotate);
-                } else {
+            arr.forEach(element => {
+                let img = new Image();
+
+                img.onload = function () {
                     context.drawImage(img, 0, 0, widthImage, heightImage);
                 }
+                img.src = 'images/' + element.name + '.png';
+            });
 
-            }
-            img.src = 'images/' + src + '.png';
         }
     },
     computed: {
