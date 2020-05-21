@@ -1,3 +1,16 @@
+Vue.component('pizza-products', {
+    props: ['item'],
+    template: `<div class="pizza__product">
+                    <img v-bind:src="item.img" alt="item.name">
+                    <div class="pizza__btn">
+                        <button v-on:click='$emit("remove", item.id)' v-bind:disabled = '!item.count'>-</button>
+                        <button v-on:click='$emit("add", item.name)'>+</button>
+                    </div>
+                    <span>{{ item.name }}</span>
+                </div>`
+});
+
+
 let app = new Vue({
     el: '#app',
     data: {
@@ -10,6 +23,32 @@ let app = new Vue({
                 count: 1,
             },
         ],
+        products: [
+            {
+                id: 0,
+                name: 'testo',
+                img: '',
+                count: 1,
+            },
+            {
+                id: 0,
+                name: 'cheese',
+                img: 'images/icons/cheese.png',
+                count: 0,
+            },
+            {
+                id: 1,
+                name: 'becon',
+                img: 'images/icons/becon.png',
+                count: 0,
+            },
+            {
+                id: 2,
+                name: 'mushrooms',
+                img: 'images/icons/mushrooms.png',
+                count: 0,
+            }
+        ],
     },
     methods: {
         showMenu: function () {
@@ -20,36 +59,25 @@ let app = new Vue({
             }
         },
         addComponent: function (component) {
-            let index = 0;
-            this.components.forEach(element => {
+            this.products.forEach(element => {
                 if (element.name == component) {
-                    index = element.id;
+                    element.count++;
                 } else {
                     return 0;
                 }
             });
-            if (index) {
-                this.components[index].count++;
-            } else {
-                this.components.push({
-                    id: this.components.length,
-                    name: component,
-                    count: 1
-                });
-            }
             this.drawOnCanvas();
 
         },
-        removeComponent: function (index) {
-            if (this.components[index]) {
-                if (this.components[index].count == 1) {
-                    this.components.splice(index, 1);
-                    this.drawOnCanvas();
-                } else {
-                    this.components[index].count--;
-                }
-            } else {
-                alert('Not found this element in the pizza');
+        removeComponent: function (id) {
+            try {
+                this.products.forEach(element => {
+                    if (element.id == id) {
+                        element.count--;
+                    }
+                });
+            } catch (e) {
+                alert('Error:' + e);
             }
         },
         init: function () {
@@ -57,18 +85,20 @@ let app = new Vue({
         },
         drawOnCanvas: function () {
             let context = document.getElementById('canvas').getContext('2d');
-            let arr = this.components;
+            let arr = this.products;
 
             let widthImage = +this.sizeCanvas.width.split('').slice(0, -2).join('');
             let heightImage = +this.sizeCanvas.height.split('').slice(0, -2).join('');
 
             arr.forEach(element => {
-                let img = new Image();
+                if (element.count != 0) {
+                    let img = new Image();
 
-                img.onload = function () {
-                    context.drawImage(img, 0, 0, widthImage, heightImage);
+                    img.onload = function () {
+                        context.drawImage(img, 0, 0, widthImage, heightImage);
+                    }
+                    img.src = 'images/' + element.name + '.png';
                 }
-                img.src = 'images/' + element.name + '.png';
             });
 
         }

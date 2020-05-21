@@ -134,16 +134,31 @@ header>.mini-cart{
     color:#000;
 }
 .pizza__products {
-    flex-direction: column;
-    justify-content: center;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
     cursor: pointer;
 }
 .pizza__product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 15px;
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 20px;
 }
-.pizza_product {
+.pizza__product img {
+    width: 85px;
+    height: 85px;
+    padding-right: 10px;
+}
+.pizza__product span{
+    font-size: 20px;
 }
 .pizza__canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .pizza__components {
 }

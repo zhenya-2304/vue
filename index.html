@@ -68,16 +68,17 @@
             </div>
             <div class="content__pizza pizza">
                 <div class="pizza__products">
-                    <div class="pizza__product" v-on:click='addComponent("cheese")'>Cheese</div>
-                    <div class="pizza__product" v-on:click='addComponent("becon")'>Becon</div>
-                    <div class="pizza__product" v-on:click='addComponent("mushrooms")'>Mushrooms</div>
+                    <pizza-products v-for="item in products" v-bind:key="item.id" v-bind:item='item'
+                        v-on:add='addComponent($event)' v-on:remove='removeComponent($event)'
+                        v-if='item.name != "testo"'>
+                    </pizza-products>
                 </div>
                 <div class="pizza__canvas" v-on:load='init'>
                     <canvas id='canvas' v-bind:width="sizeCanvas.width" v-bind:height="sizeCanvas.height"></canvas>
                 </div>
                 <div class="pizza__components">
                     <ul>
-                        <li class='pizza__component' v-for='(item, index) in components' v-bind:key='item.id'
+                        <li class='pizza__component' v-for='(item, index) in products' v-bind:key='item.id'
                             v-if='item.name != "testo"'>
                             <span>{{item.name}} - {{item.count}}</span>
                             <button v-on:click='removeComponent(index)'>Delete</button>
