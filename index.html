@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/slider/css/slider.css">
+    <!-- <link rel="stylesheet" href="./slider/css/slider.css"> -->
     <link rel="stylesheet" href="close.css">
 
 </head>
@@ -18,16 +18,11 @@
         <header>
             <button class="menu__button" v-on:click="showMenu"><i class="menu__icon"></i></button>
             <div class="logo">
-                <span>Pizza</span>
-                <span>constructor</span>
+                <div>
+                    <span>Pizza</span>
+                    <span>constructor</span>
+                </div>
             </div>
-            <nav class='menu'>
-                <ul class="menu__wrap">
-                    <li class="menu__item">About Us</li>
-                    <li class="menu__item">Constructor</li>
-                    <li class="menu__item">Contacts</li>
-                </ul>
-            </nav>
             <nav class="mobile-menu" v-bind:class="{ 'mobile-menu_active': isActive }">
                 <div class="mobile-menu__logo">
                     <div class="logo">
@@ -43,13 +38,15 @@
                     <li class="mobile-menu__item">Contacts</li>
                 </ul>
             </nav>
-            <div class="mini-cart">
+            <!-- Мини-корзина -->
+            <!-- <div class="mini-cart">
                 <span v-if='cartEmpty'>Cart empty</span>
-                <span v-else>{{}}</span>
-            </div>
+                <span v-else>{{cart.orders.length}} in cart. Total cost: {{cart.orders.cost}} usd</span>
+                <span>{{cart.orders}}</span>
+            </div> -->
         </header>
         <div class="content">
-            <div class="content__slider slider">
+            <!-- <div class="content__slider slider">
                 <div class="slider__wrapper">
                     <div class="slider__items">
                         <div class="slider__item">
@@ -65,37 +62,42 @@
                 </div>
                 <a class="slider__control slider__control_prev" href="#" role="button"></a>
                 <a class="slider__control slider__control_next slider__control_show" href="#" role="button"></a>
-            </div>
+            </div> -->
             <div class="content__pizza pizza">
                 <div class="pizza__products">
+                    <div class="pizza__title">
+                        <span>Choose products</span>
+                    </div>
                     <pizza-products v-for="item in products" v-bind:key="item.id" v-bind:item='item'
-                        v-on:add='addComponent($event)' v-on:remove='removeComponent($event)'
+                        v-bind:image='item.img' v-on:add='addComponent($event)' v-on:remove='removeComponent($event)'
                         v-if='item.name != "testo"'>
                     </pizza-products>
                 </div>
                 <div class="pizza__canvas" v-on:load='init'>
                     <canvas id='canvas' v-bind:width="sizeCanvas.width" v-bind:height="sizeCanvas.height"></canvas>
                 </div>
-                <div class="pizza__components">
-                    <ul>
-                        <li class='pizza__component' v-for='(item, index) in products' v-bind:key='item.id'
-                            v-if='item.name != "testo"'>
-                            <span>{{item.name}} - {{item.count}}</span>
-                            <button v-on:click='removeComponent(index)'>Delete</button>
-                        </li>
-                    </ul>
-                </div>
             </div>
+            <pizza-order v-bind:cost='cost' v-on:create-order='formActive=1'></pizza-order>
+            <pizza-order-list class='content__order-list' v-bind:list='products'></pizza-order-list>
+            <pizza-form-confirm class='content__form' 
+                                v-bind:class='{content__form_active: formActive}' 
+                                v-bind:order='products'
+                                v-bind:cost='cost'
+                                v-bind:buyer='cart'
+                                v-on:cancel='formActive=0'
+                                v-on:submit='cart.orders.push(createOrder())'>                                                       
+            </pizza-form-confirm>
         </div>
     </div>
-    <script src="/slider/js/slider.js"></script>
-    <script>
+    <script src="./slider/js/slider.js"></script>
+
+    <!-- <script>
         slideShow('.slider', {
             isAutoplay: false,
 
         });
-    </script>
-    <script type='module' src="index.js"></script>
+    </script> -->
+    <script  src="index.js"></script>
 </body>
 
 </html>
